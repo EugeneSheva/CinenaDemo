@@ -19,7 +19,7 @@ function readURL(input) {
     }
 }
 
-f
+
 
 function removeUpload() {
     $('.file-upload-input').replaceWith($('.file-upload-input').clone());

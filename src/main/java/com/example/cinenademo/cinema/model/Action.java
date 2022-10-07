@@ -14,12 +14,12 @@ public class Action {
     String name;
     Date date;
     String description;
-    byte[] mainpicture;
-    byte[] picture1;
-    byte[] picture2;
-    byte[] picture3;
-    byte[] picture4;
-    byte[] picture5;
+    String mainpicture;
+    String picture1;
+    String picture2;
+    String picture3;
+    String picture4;
+    String picture5;
     String video;
     String url;
     String title;

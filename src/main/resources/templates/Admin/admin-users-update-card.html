@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Пользователи</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="admin-cinema.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- верхняя навигация -->
+        <div class="header">
+            <a class="navbar-brand" href="#">CMSkino admin</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <div class="btn-group" role="group" aria-label="Basic outlined button group">
+                <button type="button" class="btn btn-outline-secondary">Мой кабинет</button>
+                <button type="button" class="btn btn-outline-secondary">Выход</button>
+            </div>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" >
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <a href="admin-statistics" class="btn btn-secondary btn-lg">Статистика</a>
+                <a href="admin-banners" class="btn btn-secondary btn-lg">Баннера/Слайды</a>
+                <a href="admin-film" class="btn btn-secondary btn-lg">Фильмы</a>
+                <a href="admin-cinema" class="btn btn-secondary btn-lg" >Кинотеатры</a>
+                <a href="admin-news" class="btn btn-secondary btn-lg">Новости</a>
+                <a href="admin-action" class="btn btn-secondary btn-lg">Акции</a>
+                <a href="admin-pages" class="btn btn-secondary btn-lg">Страницы</a>
+                <a href="admin-users" class="btn btn-secondary btn-lg">Пользователи</a>
+                <a href="admin-mailing-list" class="btn btn-secondary btn-lg">Рассылка</a>
+            </div>
+        </div>
+        <div class="col-md-10" >
+            <form th:method="POST" th:object="${users}"  th:action="@{/admin-users-card-add}"  enctype="multipart/form-data"  >
+                <div class="row">
+                    <div class="col">
+                        <label for="idusers"></label>
+                        <input type="hidden" class="form-control" th:field="*{idusers}" id="idusers" placeholder="введется автоматически">
+
+                        <label for="firstname">Имя</label>
+                        <input type="text" class="form-control" th:field="*{firstname}" id="firstname" placeholder="введите имя">
+
+                        <label for="lastname">Фамилия</label>
+                        <input type="text" class="form-control" th:field="*{lastname}" id="lastname" placeholder="введите фамилию">
+
+                        <label for="nickname">Псевдоним</label>
+                        <input type="text" class="form-control" th:field="*{nickname}" id="nickname" placeholder="введите псевдоним">
+
+                        <label for="email">E-mail</label>
+                        <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="введите E-mail">
+
+                        <label for="adress">Адрес</label>
+                        <input type="text" class="form-control" th:field="*{adress}" id="adress" placeholder="введите адрес">
+
+                        <label for="password">Пароль</label>
+                        <input type="text" class="form-control" th:field="*{password}" id="password" placeholder="введите пароль">
+
+                        <label for="cardnumber">Номер карты</label>
+                        <input type="number" class="form-control" th:field="*{cardnumber}" id="cardnumber" placeholder="введите номер карты">
+
+
+                    </div>
+                    <div class="col">
+                        <br>
+                        <h7>Язык</h7>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" th:field="*{language}" type="radio" name="radioInline" id="inlineRadioDefault" value="ukrainian">
+                            <label class="form-check-label" for="inlineRadioDefault">Українська</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" th:field="*{language}" type="radio" name="radioInline" id="inlineRadioChecked" checked=""value="russian">
+                            <label class="form-check-label" for="inlineRadioChecked">Русский</label>
+                        </div>
+                        <br>
+                        <br>
+
+                        <h7>Пол</h7>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" th:field="*{gender}" type="radio" name="radioInline" id="inlineRadioDefault1" value="man">
+                            <label class="form-check-label" for="inlineRadioDefault1">Мужской</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" th:field="*{gender}" type="radio" name="radioInline" id="inlineRadioChecked1" checked="" value="woman">
+                            <label class="form-check-label" for="inlineRadioChecked1">Женский</label>
+                        </div>
+                        <br>
+                        <br>
+                        <label for="phonenumber">Номер телефона</label>
+                        <input type="number" class="form-control" th:field="*{phonenumber}"  id="phonenumber" placeholder="введите номер телефона">
+
+                        <label for="dateofbirth">Дата рожденя</label>
+                        <input type="date" id="dateofbirth" th:field="*{dateofbirth}" class="form-control"  placeholder="Дата рождения">
+
+
+
+                        <label for="city">Выберите город</label>
+                        <select class="form-select" th:field="*{city}" id="city" aria-label="Default select">
+
+                            <option th:value="Киев" th:text="Киев" ></option>
+                            <option th:value="Харьков" th:text="Харьков" ></option>
+                            <option th:value="Одесса" th:text="Одесса" ></option>
+                        </select>
+
+                        <label for="repassword">Повторите пароль</label>
+                        <input type="text" class="form-control"  th:field="*{repassword}" id="repassword" placeholder="введите пароль">
+
+                        <label for="dateofregistry"></label>
+                        <input  type="hidden" id="dateofregistry" class="form-control" th:field="*{dateofregistry}" placeholder="Дата публикации">
+
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-secondary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="admin-cinema.js"></script>
+</body>
+</html>

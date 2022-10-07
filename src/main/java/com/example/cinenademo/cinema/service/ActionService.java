@@ -3,9 +3,10 @@ package com.example.cinenademo.cinema.service;
 import com.example.cinenademo.cinema.model.Action;
 import com.example.cinenademo.cinema.repository.ActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ActionService {
     private final ActionRepository actionRepository;
     @Autowired
@@ -21,7 +22,7 @@ public class ActionService {
         return actionRepository.findAll();
     }
 
-    public Action saveUser(Action action) {
+    public Action save(Action action) {
         return actionRepository.save(action);
     }
 

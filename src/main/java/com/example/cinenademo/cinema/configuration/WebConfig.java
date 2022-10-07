@@ -25,9 +25,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**")
-                .addResourceLocations("file://"+uploadPath+"/film")
+                .addResourceLocations("file:"+uploadPath+"/");
 //                .addResourceLocations("file:///"+uploadPath+"/")
-                .setCachePeriod(0);
+        registry
+                .addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/");
+
     }
     //    @Override
 //    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

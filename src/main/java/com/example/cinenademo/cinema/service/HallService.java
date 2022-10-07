@@ -3,9 +3,10 @@ package com.example.cinenademo.cinema.service;
 import com.example.cinenademo.cinema.model.Hall;
 import com.example.cinenademo.cinema.repository.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class HallService {
     private final HallRepository hallRepository;
     @Autowired
@@ -21,7 +22,7 @@ public class HallService {
         return hallRepository.findAll();
     }
 
-    public Hall saveUser(Hall hall) {
+    public Hall save(Hall hall) {
         return hallRepository.save(hall);
     }
 

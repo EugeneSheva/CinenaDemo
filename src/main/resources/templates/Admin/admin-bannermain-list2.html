@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Пользователи</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/CSS/admin-cinema.css"  rel="stylesheet" type="text/css">
+    <!--    <link href="/CSS/admin-cinema1.css"  rel="stylesheet" type="text/css">-->
+    <!--    <link href="/CSS/admin-cinema2.css"  rel="stylesheet" type="text/css">-->
+
+    <style>
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- верхняя навигация -->
+        <div class="header">
+            <a class="navbar-brand" href="#">CMSkino admin</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <div class="btn-group" role="group" aria-label="Basic outlined button group">
+                <button type="button" class="btn btn-outline-secondary">Мой кабинет</button>
+                <button type="button" class="btn btn-outline-secondary">Выход</button>
+            </div>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" >
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <a href="admin-statistics" class="btn btn-secondary btn-lg">Статистика</a>
+                <a href="admin-banners" class="btn btn-secondary btn-lg">Баннера/Слайды</a>
+                <a href="admin-film" class="btn btn-secondary btn-lg">Фильмы</a>
+                <a href="admin-cinema" class="btn btn-secondary btn-lg" >Кинотеатры</a>
+                <a href="admin-news" class="btn btn-secondary btn-lg">Новости</a>
+                <a href="admin-action" class="btn btn-secondary btn-lg">Акции</a>
+                <a href="admin-pages" class="btn btn-secondary btn-lg">Страницы</a>
+                <a href="admin-users" class="btn btn-secondary btn-lg">Пользователи</a>
+                <a href="admin-mailing-list" class="btn btn-secondary btn-lg">Рассылка</a>
+            </div>
+        </div>
+        <div class="col-md-10" >
+
+            <div style="text-align: center;"><h2>На главной верх</h2></div>
+
+            <div class="card">
+<!--                <form th:method="POST"  th:action="@{/admin-bannermain-card-add1}" th:object="${bannermain1}" enctype="multipart/form-data">-->
+                                    <form th:method="POST"  enctype="multipart/form-data">
+                    <label for="idbanner"></label>
+                    <input type="hidden" class="form-control"  id="idbanner" placeholder="введется автоматически">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-switch" >
+                                    <input class="form-check-input" role="switch" value="on" type="checkbox" id="formSwitchCheckChecked" >
+                                    <label class="form-check-label" for="formSwitchCheckChecked"></label>
+                                </div>
+                            </div>
+                                                        <div class="col">
+                                                            <div class="form-floating">
+                                                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                                                    <option th:value="3" th:text="3" ></option>
+                                                                    <option th:value="6" th:text="6"></option>
+                                                                    <option th:value="9" th:text="9"></option>
+                                                                    <option th:value="12" th:text="12"></option>
+                                                                    <option th:value="15" th:text="15"></option>
+                                                                </select>
+                                                                <label for="floatingSelect">Скорость вращения</label>
+                                                            </div>
+                                                        </div>
+                        </div>
+
+                        <div class="upload__box">
+                            <div class="upload__btn-box">
+                                <label class="upload__btn">
+                                    <p>Загрузить изображение</p>
+                                    <input type="file"  multiple=""  data-max_length="9" class="upload__inputfile">
+                                </label>
+                            </div>
+                            <div class="upload__img-wrap"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;"><button type="submit" class="btn btn-secondary">Сохранить</button></div>
+                    <br>
+                </form>
+            </div>
+
+<!--                        <div style="text-align: center;"><h2>Сквозной банер на заднем фоне</h2></div>-->
+
+<!--                        <div class="card">-->
+<!--            &lt;!&ndash;            <form th:method="POST"  th:action="@{/admin-bannermain-card-add2}" th:object="${bannermain2}" enctype="multipart/form-data">&ndash;&gt;-->
+<!--                            <form th:method="POST"  enctype="multipart/form-data">-->
+<!--                                <label for="idbanner1"></label>-->
+<!--                                <input type="hidden" class="form-control"  id="idbanner1" placeholder="введется автоматически">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="upload__box1">-->
+<!--                                        <div class="upload__btn-box1">-->
+<!--                                            <label class="upload__btn1">-->
+<!--                                                <p>Загрузить изображения</p>-->
+<!--                                                <input type="file"  data-max_length1="0" class="upload__inputfile1">-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                        <div class="upload__img-wrap1"></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div style="text-align: center;"><button type="submit" class="btn btn-secondary">Сохранить</button></div>-->
+<!--                                <br>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                        <div style="text-align: center;"><h2>На главной Новости Акции</h2></div>-->
+
+<!--                        <div class="card">-->
+<!--            &lt;!&ndash;            <form th:method="POST"  th:action="@{/admin-bannermain-card-add3}" th:object="${bannermain3}" enctype="multipart/form-data">&ndash;&gt;-->
+<!--                            <form th:method="POST"   enctype="multipart/form-data">-->
+<!--                               <label for="idbanner2"></label>-->
+<!--                               <input type="hidden" class="form-control"   id="idbanner2" placeholder="введется автоматически">-->
+<!--                               <div class="card-body">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col">-->
+<!--                                            <div class="form-check form-switch" >-->
+<!--                                                <input class="form-check-input"  role="switch" value="on" type="checkbox" id="formSwitchCheckChecked2" >-->
+<!--                                                <label class="form-check-label" for="formSwitchCheckChecked"></label>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--            &lt;!&ndash;                            <div class="col">&ndash;&gt;-->
+<!--            &lt;!&ndash;                                <div class="form-floating">&ndash;&gt;-->
+<!--            &lt;!&ndash;                                    <select class="form-select" th:field="*{speed}" id="floatingSelect1" aria-label="Floating label select example">&ndash;&gt;-->
+<!--            &lt;!&ndash;                                        <option th:value="3" th:text="3" ></option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                        <option th:value="6" th:text="6"></option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                        <option th:value="9" th:text="9"></option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                        <option th:value="12" th:text="12"></option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                        <option th:value="15" th:text="15"></option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                    </select>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                    <label for="floatingSelect">Скорость вращения</label>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                    <div class="upload__box2">-->
+<!--                                        <div class="upload__btn-box2">-->
+<!--                                            <label class="upload__btn2">-->
+<!--                                               <p>Загрузить изображения</p>-->
+<!--                                                <input type="file" multiple="" data-max_length2="9" class="upload__inputfile2">-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                        <div class="upload__img-wrap2"></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="text-align: center;"><button type="submit" class="btn btn-secondary">Сохранить</button></div>-->
+<!--                                <br>-->
+<!--                            </form>-->
+<!--                        </div>-->
+            <br>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script>
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/JS/admin-cinema.js"></script>
+<!--<script src="/JS/admin-cinema1.js"></script>-->
+<!--<script src="/JS/admin-cinema2.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="/assets/js/jquery-3.5.1.min.js"></script>
+</body>
+</html>

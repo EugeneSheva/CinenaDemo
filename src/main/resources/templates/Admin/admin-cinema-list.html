@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:D="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 <head>
     <meta charset="UTF-8">
     <title>Фильмы</title>
@@ -42,33 +42,28 @@
         </div>
         <div class="col-md-10" >
             <form>
-                <h2><center>Список текущиих фильмов</center></h2>
-                <div th:switch="${films}">
-                    <h2 th:case="null">Добавьте фильм</h2>
+                <h2><center>Список кинотеатров</center></h2>
+                <div th:switch="${cinema}">
+                    <h2 th:case="null">Добавьте кинотеатр</h2>
                     <div th:case="*">
-                        <h2>Фильмы</h2>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Название</th>
-                                <th>Описание</th>
-                                <th>Фото</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="film : ${films}">
-                                <td th:text="${film.idfilm}"></td>
-                                <td th:text="${film.name}"></td>
-                                <td th:text="${film.description}"></td>
-                                <td img th:src="@{D:/Users/1/Desktop/ha}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                        <h2>Кинотеатры</h2>
+                        <div class="row row-cols-1 row-cols-sm-5 g-3" >
+                            <div class="col" th:each="cinema : ${cinema}">
+                                <div class="card" >
+                                    <img th:src="${cinema.mainpicture}" class="card-img-top" alt="card-grid-image" >
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${cinema.name}"></h5>
+                                        <div class="btn-group" role="group" aria-label="Basic outlined button group">
+                                            <a th:href="@{admin-cinema-card-update/{id}(id=${cinema.idcinema})}" class="btn btn-secondary ">Редактировать</a>
+                                            <a th:href="@{cinema-delete/{id}(id=${cinema.idcinema})}" class="btn btn-danger ">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a href="/admin-film-card" class="btn btn-secondary">Создать</a>
+                <a href="admin-cinema-card-form" class="btn btn-secondary">Создать</a>
             </form>
         </div>
     </div>

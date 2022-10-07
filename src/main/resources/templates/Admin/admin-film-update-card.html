@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Редактирование карты фильма</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/CSS/admin-cinema.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/admin-cinema1.css" />
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- верхняя навигация -->
+        <div class="header">
+            <a class="navbar-brand" href="#">CMSkino admin</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <div class="btn-group" role="group" aria-label="Basic outlined button group">
+                <button type="button" class="btn btn-outline-secondary">Мой кабинет</button>
+                <button type="button" class="btn btn-outline-secondary">Выход</button>
+            </div>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" >
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <a href="admin-statistics" class="btn btn-secondary btn-lg">Статистика</a>
+                <a href="admin-banners" class="btn btn-secondary btn-lg">Баннера/Слайды</a>
+                <a href="admin-film" class="btn btn-secondary btn-lg">Фильмы</a>
+                <a href="admin-cinema" class="btn btn-secondary btn-lg" >Кинотеатры</a>
+                <a href="admin-news" class="btn btn-secondary btn-lg">Новости</a>
+                <a href="admin-action" class="btn btn-secondary btn-lg">Акции</a>
+                <a href="admin-pages" class="btn btn-secondary btn-lg">Страницы</a>
+                <a href="admin-users" class="btn btn-secondary btn-lg">Пользователи</a>
+                <a href="admin-mailing-list" class="btn btn-secondary btn-lg">Рассылка</a>
+            </div>
+        </div>
+        <div class="col-md-10" >
+            <form method="POST"  th:action="@{/admin-film-card-update-save}" th:object="${film}" enctype="multipart/form-data" modelAttribute="film"   >
+                <div class="form-group">
+                    <br>
+                    <label for="idfilm"></label>
+                    <input type="hidden" class="form-control" th:field="*{idfilm}" id="idfilm" placeholder="введется автоматически">
+                </div>
+                <div class="form-group">
+                        <br>
+                        <label for="name">Название фильма</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="введите название"><br>
+                    </div>
+                <div class="form-group">
+                    <br>
+                    <label for="description">Описание</label>
+                    <textarea class="form-control" th:field="*{description}" id="description" placeholder="введите описание" rows="5"></textarea ><br>
+                </div>
+                <h6>Главное фото</h6>
+                <div class="upload__box">
+                    <div class="upload__btn-box">
+                        <label class="upload__btn">
+                            <p>Загрузить изображение</p>
+                            <input type="file"  th:field="*{mainpicture}" data-max_length="0" class="upload__inputfile">
+                        </label>
+                    </div>
+                    <div class="upload__img-wrap"></div>
+                </div>
+                <h6>Галерея картинок (максимум 5 фото)</h6>
+                <div class="upload__box1">
+                    <div class="upload__btn-box1">
+                        <label class="upload__btn1">
+                            <p>Загрузить изображения</p>
+                            <input type="file" multiple="" th:field="*{picture1}" data-max_length1="4" class="upload__inputfile1">
+                        </label>
+                    </div>
+                    <div class="upload__img-wrap1"></div>
+                </div>
+                <br>
+                <label for="video">Ссылка на трейлер</label>
+                <input type="text" th:field="*{video}" class="form-control" id="video" placeholder="ссылка на видео YouTube">
+                <br>
+                <h6>Тип кино</h6>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" th:field="*{type}" type="checkbox" value="" id="2d">
+                    <label class="form-check-label" for="2d">2D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" th:field="*{type}" type="checkbox" value="" id="3d">
+                    <label class="form-check-label" for="3d">3D</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" th:field="*{type}" type="checkbox" value="" id="imax">
+                    <label class="form-check-label" for="imax">IMAX</label>
+                </div><br>
+                <br>
+                <h6>SEO блок</h6>
+                <br>
+                <form>
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="text" th:field="*{url}" class="form-control"  id="url" placeholder="URL">
+                    </div><br>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" th:field="*{title}" class="form-control"  id="title" placeholder="Title">
+                    </div><br>
+                    <div class="form-group">
+                        <label for="keywords">Keywords</label>
+                        <input type="text" th:field="*{keywords}" class="form-control"  id="keywords" placeholder="Keywords">
+                    </div><br>
+                    <div class="form-group">
+                        <label for="seodescription">Description</label>
+                        <textarea class="form-control" th:field="*{descript}" id="seodescription" placeholder="Description" rows="5"></textarea >
+                    </div><br>
+                    <button type="submit" class="btn btn-secondary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary">Вернуть базовую версию</button>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/JS/admin-cinema.js"></script>
+<script src="/JS/admin-cinema1.js"></script>
+</body>
+</html>

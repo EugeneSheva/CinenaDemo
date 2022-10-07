@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,10 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-
 public class FilmController {
-
-
 
     private final FilmService filmService;
  @Autowired
@@ -34,58 +28,13 @@ public class FilmController {
     private String uploadPath;
     private File uploadDir;
 
-
-    @GetMapping("/admin-action")
-    public String getAction() {
-        return "Admin/admin-action";
-    }
-
-    @GetMapping("/admin-banners")
-    public String getBanners() {
-        return "Admin/admin-banners";
-    }
-    @GetMapping("/admin-cinema")
-    public String getCinema(){
-        return "Admin/admin-cinema";
-    }
-    @GetMapping("/admin-cinema-list")
-    public String getCinemaList() {
-        return "Admin/admin-cinema-list";
-    }
-    @GetMapping("/admin-film-card")
-    public String getFilmCard() {
-        return "Admin/admin-film-card";
-    }
     @GetMapping("/admin-film")
     public String findAll(Model model){
         List<Film> films = filmService.findAll();
         model.addAttribute("films",films);
         return "Admin/admin-film-list";
     }
-    @GetMapping("/admin-hall")
-    public String getHall() {
-        return "Admin/admin-hall";
-    }
-    @GetMapping("/admin-mailing-list")
-    public String getMailingList() {
-        return "Admin/admin-mailing-list";
-    }
-    @GetMapping("/admin-news")
-    public String getNews(){
-        return "Admin/admin-news";
-    }
-    @GetMapping("/admin-pages")
-    public String getPages() {
-        return "Admin/admin-pages";
-    }
-    @GetMapping("/admin-statistics")
-    public String getStatistics() {
-        return "Admin/admin-statistics";
-    }
-    @GetMapping("/admin-users")
-    public String getUsers() {
-        return "Admin/admin-users";
-    }
+
 
     @GetMapping("/admin-film-card-form")
     public String createFilmForm(Model model) {
@@ -106,23 +55,24 @@ public class FilmController {
     public String createFilm(@RequestParam ("name") String name, @RequestParam ("description") String description,@RequestParam("mainpicture") MultipartFile file,
                              @RequestParam("picture1") MultipartFile[] files,
                              @RequestParam("video") String video,  @RequestParam("type") String type, @RequestParam("url") String url,
-                             @RequestParam("title") String title, @RequestParam("keywords") String keywords, @RequestParam("descript") String descript, Model model){
+                             @RequestParam("title") String title, @RequestParam("keywords") String keywords, @RequestParam("descript") String descript){
         Film film = new Film();
         film.setName(name);
         film.setDescription(description);
-        if (file != null) {
-                    uploadDir = new File(uploadPath + "/film/" + name);
+        if (file.getSize() > 0) {
+                    uploadDir = new File(uploadPath);
                     if (!uploadDir.exists()) {
                         uploadDir.mkdirs();
                     }
                     String uuid = UUID.randomUUID().toString();
-                    String FileNameUuid = uuid + "." + file.getOriginalFilename();
+                    String FileNameUuid = uuid + "-" + file.getOriginalFilename();
                     try {
                         file.transferTo(new File(uploadDir + "/" + FileNameUuid));
+                        System.out.println(uploadDir + "/" + FileNameUuid);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    film.setMainpicture(FileNameUuid);
+                    film.setMainpicture("/img/"+FileNameUuid);
 
 
         }
@@ -132,28 +82,28 @@ public class FilmController {
                 if (file1.getSize() > 0) {
 
 
-                    uploadDir = new File(uploadPath + "/film/" + name);
+                    uploadDir = new File(uploadPath);
                     System.out.println(uploadDir);
                     if (!uploadDir.exists()) {
                         uploadDir.mkdirs();
                     }
                     String uuid = UUID.randomUUID().toString();
-                    String FileNameUuid = uuid + "." + file1.getOriginalFilename();
+                    String FileNameUuid = uuid + "-" + file1.getOriginalFilename();
                     try {
                         file1.transferTo(new File(uploadDir + "/" + FileNameUuid));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     if (film.getPicture1()==null) {
-                        film.setPicture1(FileNameUuid);
+                        film.setPicture1("/img/"+FileNameUuid);
                     }else if (film.getPicture2()==null) {
-                        film.setPicture2(FileNameUuid);
+                        film.setPicture2("/img/"+FileNameUuid);
                     }else if (film.getPicture3()==null) {
-                        film.setPicture3(FileNameUuid);
+                        film.setPicture3("/img/"+FileNameUuid);
                     }else if (film.getPicture4()==null) {
-                        film.setPicture4( FileNameUuid);
+                        film.setPicture4("/img/"+FileNameUuid);
                     }else if (film.getPicture5()==null) {
-                        film.setPicture5(FileNameUuid);
+                        film.setPicture5("/img/"+FileNameUuid);
                     }
                 }
             }
@@ -165,13 +115,92 @@ public class FilmController {
         film.setKeywords(keywords);
         film.setDescript(descript);
         filmService.saveFilm(film);
-        model.addAttribute("film",film);
+
         return "redirect:/admin-film";
     }
 
-    @GetMapping("/test")
-    public String getTest() {
-        return "Admin/test";
+    @GetMapping("film-delete/{id}")
+    public String deleteFilm(@PathVariable("id") Long id) {
+        filmService.deleteById(id);
+        return "redirect:/admin-film";
     }
+
+    @GetMapping("/admin-film-card-update/{id}")
+    public String updateFilmForm(@PathVariable("id") Long id, Model model) {
+        Film film = filmService.findById(id);
+        model.addAttribute("film", film);
+        return "Admin/admin-film-update-card";
+    }
+
+    @PostMapping("/admin-film-card-update-save")
+    public String updateFilm(@RequestParam ("idfilm") Long idfilm, @RequestParam ("name") String name, @RequestParam ("description") String description,@RequestParam("mainpicture") MultipartFile file,
+                             @RequestParam("picture1") MultipartFile[] files,
+                             @RequestParam("video") String video,  @RequestParam("type") String type, @RequestParam("url") String url,
+                             @RequestParam("title") String title, @RequestParam("keywords") String keywords, @RequestParam("descript") String descript) {
+        Film film = new Film();
+        film.setIdfilm(idfilm);
+        film.setName(name);
+        film.setDescription(description);
+        if (file.getSize() > 0) {
+                    uploadDir = new File(uploadPath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+                    String uuid = UUID.randomUUID().toString();
+                    String FileNameUuid = uuid + "-" + file.getOriginalFilename();
+                    try {
+                        file.transferTo(new File(uploadDir + "/" + FileNameUuid));
+                        System.out.println(uploadDir + "/" + FileNameUuid);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    film.setMainpicture("/img/"+FileNameUuid);
+
+
+        }
+        if (files.length>0) {
+            System.out.println(files.length);
+            for (MultipartFile file1 : files) {
+                if (file1.getSize() > 0) {
+
+
+                    uploadDir = new File(uploadPath);
+                    System.out.println(uploadDir);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+                    String uuid = UUID.randomUUID().toString();
+                    String FileNameUuid = uuid + "-" + file1.getOriginalFilename();
+                    try {
+                        file1.transferTo(new File(uploadDir + "/" + FileNameUuid));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (film.getPicture1()==null) {
+                        film.setPicture1("/img/"+FileNameUuid);
+                    }else if (film.getPicture2()==null) {
+                        film.setPicture2("/img/"+FileNameUuid);
+                    }else if (film.getPicture3()==null) {
+                        film.setPicture3("/img/"+FileNameUuid);
+                    }else if (film.getPicture4()==null) {
+                        film.setPicture4("/img/"+FileNameUuid);
+                    }else if (film.getPicture5()==null) {
+                        film.setPicture5("/img/"+FileNameUuid);
+                    }
+                }
+            }
+        }
+        film.setVideo(video);
+        film.setType(type);
+        film.setUrl(url);
+        film.setTitle(title);
+        film.setKeywords(keywords);
+        film.setDescript(descript);
+        filmService.saveFilm(film);
+
+        return "redirect:/admin-film";
+    }
+
+
 
 }

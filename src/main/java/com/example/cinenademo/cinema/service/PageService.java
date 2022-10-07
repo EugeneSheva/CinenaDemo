@@ -3,9 +3,10 @@ package com.example.cinenademo.cinema.service;
 import com.example.cinenademo.cinema.model.Page;
 import com.example.cinenademo.cinema.repository.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PageService {
     private final PageRepository pageRepository;
     @Autowired
@@ -21,7 +22,7 @@ public class PageService {
         return pageRepository.findAll();
     }
 
-    public Page saveUser(Page page) {
+    public Page save(Page page) {
         return pageRepository.save(page);
     }
 

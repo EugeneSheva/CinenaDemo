@@ -1,13 +1,13 @@
 package com.example.cinenademo.cinema.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 @Data
 @Entity
 @Table(name = "users")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +17,19 @@ public class User {
     String nickname;
     String email;
     String adress;
-    String passwerd;
-    Integer cardnumer;
-    Language language;
-    Gender gender;
+    String password;
+    Integer cardnumber;
+    String language;
+    String gender;
     Integer phonenumber;
-    Date dateofbirdth;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date dateofbirth;
     String city;
     String repassword;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date dateofregistry;
 
 
 
