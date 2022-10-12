@@ -5,10 +5,10 @@ import com.example.cinenademo.cinema.model.*;
 import com.example.cinenademo.cinema.service.BanneractionService;
 import com.example.cinenademo.cinema.service.BannermainService;
 import com.example.cinenademo.cinema.service.BannermiddleService;
-import com.example.cinenademo.cinema.service.banners.BannersDto;
+import com.example.cinenademo.cinema.service.banners.MainTopBannerService;
+import com.example.cinenademo.cinema.service.banners.MainTopBannersDto;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,24 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 public class BannerController {
 
     private final BannermainService bannermainService;
-    private final BannermiddleService bannermiddleService;
-    private final BanneractionService banneractionService;
+    private final MainTopBannerService mainTopBannerService;
 
-
-    @Autowired
-    public BannerController(BannermainService bannermainService, BannermiddleService bannermiddleService, BanneractionService banneractionService) {
-        this.bannermainService = bannermainService;
-        this.bannermiddleService = bannermiddleService;
-        this.banneractionService = banneractionService;
-    }
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -41,37 +32,14 @@ public class BannerController {
 
     @GetMapping("/admin-banners")
     public String findAll(Model model) {
-//        BannermainList bannmainlist = new BannermainList();
-//        List<Bannermain> banlist = bannermainService.findAll();
-//        while (banlist.size() < 5) {
-//            banlist.add(new Bannermain());
-//        }
-//        Long id = 1L;
-//        for (Bannermain bmain : banlist) {
-//            bmain.setIdbannermain(id++);
-//            bannmainlist.addBannMain(bmain);
-//        }
-//
-////            List<Bannermiddle> banmiddlelist = bannermiddleService.findAll();
-////            List<Banneraction> banactionlist = banneractionService.findAll();
-//
-//        model.addAttribute("BannMainList", bannmainlist);
-////            model.addAttribute("BannerMiddleList", banmiddlelist);
-////            model.addAttribute("BannerActionList", banactionlist);
-
-//        List<MainBanner> mainBanners = mainBannerService.findAll();
-//        model.addAttribute("banners", mainBanners);
-
-
+        model.addAttribute("banners", mainTopBannerService.findAll());
+        model.addAttribute("rotationSpeed", mainTopBannerService.findRotationSpeed());
         return "Admin/admin-bannermain-list";
     }
 
     @PostMapping("/save-banners")
-    public String saveBanners(BannersDto bannersDto) {
-        bannersDto.getImage().forEach(i -> System.out.println(i.getOriginalFilename()));
-        System.out.println(bannersDto.getUrl());
-        System.out.println(bannersDto.getText());
-
+    public String saveBanners(MainTopBannersDto bannersDto) {
+        mainTopBannerService.saveAllAndRotationSpeed(bannersDto);
         return "redirect:/admin-banners";
     }
 
