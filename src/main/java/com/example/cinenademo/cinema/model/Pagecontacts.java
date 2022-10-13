@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Pagecontacts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Long idpage;
     String name;
     String description;
     Integer coordinates;

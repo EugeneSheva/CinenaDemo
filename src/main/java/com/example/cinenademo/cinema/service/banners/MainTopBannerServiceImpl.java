@@ -67,7 +67,6 @@ public class MainTopBannerServiceImpl implements MainTopBannerService{
             /* Сохранение скорости вращения */
             MainTopBannerRotationSpeed rotationSpeed = rotationSpeedRepository.findFirstById(1).orElse(new MainTopBannerRotationSpeed());
             rotationSpeed.setRotationSpeed(dto.rotationSpeed);
-            System.out.println("rotationSpeed:"+rotationSpeed);
             rotationSpeedRepository.save(rotationSpeed);
         } catch (IOException e) {
             throw new RuntimeException(e);
