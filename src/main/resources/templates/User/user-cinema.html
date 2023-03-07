@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:padding-top="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body th:style="'background:url(' + ${backgroundBanner.getImagePath()} + ')  no-repeat; -moz-background-size: 100%; -webkit-background-size: 100%; -o-background-size: 100%; background-size: 100%;'">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-2">
+                    <a href="user-main"><img src='/images/logo.jpg' alt='logo' style='width: 75%'></a>
+                </div>
+                <div class="col-md-10">
+                    <div class="float-end"><h2
+                            th:style="'color: #000; text-shadow: #000 2px 0 10px; -webkit-text-stroke: 1px white'" th:text="${pagemain.phonenumber1}">
+                    </h2></div>
+                    <br>
+                    <br>
+                    <div class="float-end"><h2
+                            th:style="'color: #000; text-shadow: #000 2px 0 10px; -webkit-text-stroke: 1px white'" th:text="${pagemain.phonenumber2}">
+                    </h2>
+                    </div>
+                    <br>
+                    <br>
+                    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse show" id="navbarWithDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" aria-current="page" href="user-poster">Афиша</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="user-timetable">Расписание</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="user-poster-soon">Скоро</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " aria-current="page" href="user-cinema">Кинотеатры</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " aria-current="page" href="user-action">Акции</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                           role="button"
+                                           data-bs-toggle="dropdown" aria-expanded="false">О кинотеатре</a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="user-news">Новости</a></li>
+                                            <li><a class="dropdown-item" href="user-advertising">Реклама</a></li>
+                                            <li><a class="dropdown-item" href="user-cafe">Кафе</a></li>
+                                            <li><a class="dropdown-item" href="user-contacts">Контакты</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="carouselSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/images/movie4.jpg" class="d-block w-100" alt="Slide 1">
+                    </div>
+                    <div class="carousel-item" th:each="film : ${films}">
+                        <img th:src="${film.getPicture1()}" class="d-block w-100" alt="Slide 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <br>
+                <div th:switch="${cinemas}">
+                    <h2 th:case="null"></h2>
+                    <div th:case="*">
+                        <center th:style="'color: #000; text-shadow: #000 2px 0 10px; -webkit-text-stroke: 1px white'"><h2>
+                            Наши кинотеатры</h2>
+                        </center>
+                        <br>
+                        <div class="row row-cols-1 row-cols-sm-2 g-1">
+                            <div class="col" th:each="cinema : ${cinemas}">
+                                <a th:href="@{user-cinema-card/{id}(id=${cinema.idcinema})}">
+                                    <div class="card">
+                                        <img th:src="${cinema.mainpicture}" class="card-img-top"
+                                             alt="card-grid-image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:text="${cinema.name}"></h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src='/images/rek.jpg' alt='logo' style='width: 100%'>
+                <img src='/images/rek.jpg' alt='logo' style='width: 100%'>
+                <img src='/images/rek.jpg' alt='logo' style='width: 100%'>
+            </div>
+        </div>
+    </div>
+    <div class="container" th:style="'background:white;'">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="user-poster" class="nav-link px-2 text-muted">Афиша</a></li>
+            <li class="nav-item"><a href="user-timetable" class="nav-link px-2 text-muted">Расписание</a></li>
+            <li class="nav-item"><a href="user-poster-soon" class="nav-link px-2 text-muted">Скоро</a></li>
+            <li class="nav-item"><a href="user-cinema" class="nav-link px-2 text-muted">Кинотеатры</a></li>
+            <li class="nav-item"><a href="user-action" class="nav-link px-2 text-muted">Акции</a></li>
+            <li class="nav-item"><a href="" class="nav-link px-2 text-muted">О кинотеатре</a></li>
+            <li class="nav-item"><a href="user-news" class="nav-link px-2 text-muted">Новости</a></li>
+            <li class="nav-item"><a href="user-advertising" class="nav-link px-2 text-muted">Реклама</a></li>
+            <li class="nav-item"><a href="user-cafe" class="nav-link px-2 text-muted">Кафе-Бар</a></li>
+            <li class="nav-item"><a href="user-contacts" class="nav-link px-2 text-muted">Контакты</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 Avada Media</p>
+    </footer>
+</div>
+</div>
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

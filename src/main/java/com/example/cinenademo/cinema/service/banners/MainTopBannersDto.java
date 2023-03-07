@@ -7,9 +7,10 @@ import java.util.List;
 
 @Data
 public class MainTopBannersDto {
-    List<Integer> ids;
+    List<Long> ids;
     List<MultipartFile> images;
     List<String> urls;
     List<String> texts;
     Integer rotationSpeed;
+    Boolean status;
 }

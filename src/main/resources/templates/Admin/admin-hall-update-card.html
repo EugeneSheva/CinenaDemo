@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="admin-cinema.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/CSS/admin-cinema.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/admin-cinema1.css" />
 </head>
 <body>
 
@@ -62,130 +63,66 @@
                     <label for="description">Описание</label>
                     <textarea class="form-control" th:field="*{description}" id="description" placeholder="введите описание" rows="5"></textarea ><br>
                 </div>
-                <label for="hallschema" class="form-label">Схема зала</label>
-                <div class="file-upload">
-                    <div class="image-upload-wrap">
-                        <input class="file-upload-input" th:field="*{hallschema}" id="hallschema" type='file' onchange="readURL(this);" accept="image/*" />
-
-                        <div class="drag-text">
-                            <h4>перетяните или выберете фото</h4>
-                        </div>
+                <h6>Схема зала (Соотношение сторон 5:7)</h6>
+                <div class="row" id="banners">
+                    <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+                        <label class="upload__btn">
+                            <img th:src="${hall.hallschema}" id="photo-img" alt="Image" style="width: 100%">
+                            <input type="file" name='hallschema'  id="photo-input-img" data-max_length="0" class="upload__inputfile" onchange="uploadBanner()">
+                            <p>Загрузить изображение</p>
+                        </label>
                     </div>
-                    <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" />
-                        <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                        </div>
+                </div>
+                <h6>Верхний баннер</h6>
+                <div class="row" >
+                    <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+                        <label class="upload__btn">
+                            <img th:src="${hall.bunner}" id="photo-img0" alt="Image" style="width: 100%">
+                            <input type="file" name='bunner'  id="photo-input-img0" data-max_length="0" class="upload__inputfile" onchange="uploadBanner0()">
+                            <p>Загрузить изображение</p>
+                        </label>
+                    </div>
+                </div>
+                <h6>Галерея картинок (максимум 5 фото)</h6>
+                <h6>(Соотношение сторон 16:9)</h6>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-6">
+                    <div class="col">
+                        <label class="upload__btn1">
+                            <img th:src="${hall.picture1}" id="photo-img1" alt="Images" style="width: 100%">
+                            <input type="file" name='picture1'  id="photo-input-img1" data-max_length="0" class="upload__inputfile" onchange="uploadBanner1()">
+                            <p>Загрузить изображения</p>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="upload__btn1">
+                            <img th:src="${hall.picture2}" id="photo-img2" alt="Images" style="width: 100%">
+                            <input type="file" name='picture1'  id="photo-input-img2" data-max_length="0" class="upload__inputfile" onchange="uploadBanner2()">
+                            <p>Загрузить изображения</p>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="upload__btn1">
+                            <img th:src="${hall.picture3}" id="photo-img3" alt="Images" style="width: 100%">
+                            <input type="file" name='picture1'  id="photo-input-img3" data-max_length="0" class="upload__inputfile" onchange="uploadBanner3()">
+                            <p>Загрузить изображения</p>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="upload__btn1">
+                            <img th:src="${hall.picture4}" id="photo-img4" alt="Images" style="width: 100%">
+                            <input type="file" name='picture1'  id="photo-input-img4" data-max_length="0" class="upload__inputfile" onchange="uploadBanner4()">
+                            <p>Загрузить изображения</p>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="upload__btn1">
+                            <img th:src="${hall.picture5}" id="photo-img5" alt="Images" style="width: 100%">
+                            <input type="file" name='picture1' id="photo-input-img5" data-max_length="0" class="upload__inputfile" onchange="uploadBanner5()">
+                            <p>Загрузить изображения</p>
+                        </label>
                     </div>
                 </div>
                 <br>
-                <label for="bannermain" class="form-label">Верхний баннер</label>
-                <div class="file-upload">
-                    <div class="image-upload-wrap">
-                        <input class="file-upload-input" th:field="*{bunner}" id="bannermain" type='file' onchange="readURL(this);" accept="image/*" />
-
-                        <div class="drag-text">
-                            <h4>перетяните или выберете фото</h4>
-                        </div>
-                    </div>
-                    <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" />
-                        <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <label for="pict1">Галерея картинок</label>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <div class="file-upload">
-                            <div class="image-upload-wrap">
-                                <input class="file-upload-input" th:field="*{picture1}" id="pict1" type='file' onchange="readURL(this);" accept="image/*" />
-
-                                <div class="drag-text">
-                                    <h4>перетяните или выберете фото</h4>
-                                </div>
-                            </div>
-                            <div class="file-upload-content">
-                                <img class="file-upload-image" src="#" alt="your image" />
-                                <div class="image-title-wrap">
-                                    <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="file-upload">
-                            <div class="image-upload-wrap">
-                                <input class="file-upload-input" th:field="*{picture2}" id="pict2" type='file' onchange="readURL(this);" accept="image/*" />
-
-                                <div class="drag-text">
-                                    <h4>перетяните или выберете фото</h4>
-                                </div>
-                            </div>
-                            <div class="file-upload-content">
-                                <img class="file-upload-image" src="#" alt="your image" />
-                                <div class="image-title-wrap">
-                                    <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="file-upload">
-                            <div class="image-upload-wrap">
-                                <input class="file-upload-input" th:field="*{picture3}" id="pict3" type='file' onchange="readURL(this);" accept="image/*" />
-
-                                <div class="drag-text">
-                                    <h4>перетяните или выберете фото</h4>
-                                </div>
-                            </div>
-                            <div class="file-upload-content">
-                                <img class="file-upload-image" src="#" alt="your image" />
-                                <div class="image-title-wrap">
-                                    <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    </li>
-                    <li class="nav-item">
-                        <div class="file-upload">
-                            <div class="image-upload-wrap">
-                                <input class="file-upload-input" th:field="*{picture4}" id="pict4" type='file' onchange="readURL(this);" accept="image/*" />
-
-                                <div class="drag-text">
-                                    <h4>перетяните или выберете фото</h4>
-                                </div>
-                            </div>
-                            <div class="file-upload-content">
-                                <img class="file-upload-image" src="#" alt="your image" />
-                                <div class="image-title-wrap">
-                                    <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    </li>
-                    <li class="nav-item1">
-                        <div class="file-upload">
-                            <div class="image-upload-wrap">
-                                <input class="file-upload-input" th:field="*{picture5}" id="pict5" type='file' onchange="readURL(this);" accept="image/*" />
-
-                                <div class="drag-text">
-                                    <h4>перетяните или выберете фото</h4>
-                                </div>
-                            </div>
-                            <div class="file-upload-content">
-                                <img class="file-upload-image" src="#" alt="your image" />
-                                <div class="image-title-wrap">
-                                    <button type="button" onclick="removeUpload()" class="remove-image">Удалить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
             <br>
             <div>
             <h6>SEO блок</h6>
@@ -209,10 +146,9 @@
                 <label for="cinema"></label>
                 <input type="hidden" class="form-control" th:field="*{cinema}" id="cinema" placeholder="введется автоматически">
                 <button type="submit" class="btn btn-secondary">Сохранить</button>
+            </div>
             </form>
-
         </div>
-        </form>
     </div>
 </div>
 </div>
@@ -227,6 +163,6 @@
 <!-- Latest compiled and minified JavaScript -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="admin-cinema.js"></script>
+<script src="/JS/admin-cinema.js"></script>
 </body>
 </html>

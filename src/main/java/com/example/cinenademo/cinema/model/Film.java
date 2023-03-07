@@ -3,7 +3,9 @@ package com.example.cinenademo.cinema.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,10 +28,6 @@ public class Film {
     String title;
     String keywords;
     String descript;
+    String status;
 
-    public enum Type {
-        d2,
-        d3,
-        IMAX
-    }
 }

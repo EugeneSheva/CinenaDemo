@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class MainTopBannerRotationSpeed {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id = 1;
+    private Long id = 1L;
     private int rotationSpeed = 1;
+    private Boolean status = true;
 }

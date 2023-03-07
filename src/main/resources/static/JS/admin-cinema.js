@@ -1,68 +1,65 @@
-document.addEventListener('DOMContentLoaded', function() {
-jQuery(document).ready(function () {
-    ImgUpload();
-});
-
-function ImgUpload() {
-    var imgWrap = "";
-    var imgArray = [];
-
-    $('.upload__inputfile').each(function () {
-        $(this).on('change', function (e) {
-            imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-            var maxLength = $(this).attr('data-max_length');
-
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-            var iterator = 0;
-            filesArr.forEach(function (f, index) {
-
-                if (!f.type.match('image.*')) {
-                    return;
-                }
-
-                if (imgArray.length > maxLength) {
-                    return false
-                } else {
-                    var len = 0;
-                    for (var i = 0; i < imgArray.length; i++) {
-                        if (imgArray[i] !== undefined) {
-                            len++;
-                        }
-                    }
-                    if (len > maxLength) {
-                        return false;
-                    } else {
-                        imgArray.push(f);
-
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div>" +
-                                "<label for=\"url\">URL:</label>\n" +
-                                "<input type=\"text\" class=\"form-control\" th:field=\"*{bannermainlist[__${itemStat.index}__].url}\" id=\"url\" placeholder=\"URL\">" +
-                                "<label for=\"text\">Текст:</label>\n" +
-                                "<input type=\"text\" class=\"form-control\" th:field=\"*{bannermainlist[__${itemStat.index}__].text}\" id=\"text\" placeholder=\"текст\">" +
-                                "</div>";
-                            imgWrap.append(html);
-                            iterator++;
-                        }
-                        reader.readAsDataURL(f);
-                    }
-                }
-            });
-        });
-    });
-
-    $('body').on('click', ".upload__img-close", function (e) {
-        var file = $(this).parent().data("file");
-        for (var i = 0; i < imgArray.length; i++) {
-            if (imgArray[i].name === file) {
-                imgArray.splice(i, 1);
-                break;
-            }
-        }
-        $(this).parent().parent().remove();
-    });
+function uploadBanner() {
+    let avatar = $('#photo-input-img').prop('files')[0];
+    let oFReader = new FileReader();
+    oFReader.readAsDataURL(avatar);
+    oFReader.onload = function (oFREvent) {
+        $("#photo-img").attr('src', oFREvent.target.result);
+    };
 }
-});
+
+function uploadBanner0() {
+    let avatar0 = $('#photo-input-img0').prop('files')[0];
+    let oFReader0 = new FileReader();
+    oFReader0.readAsDataURL(avatar0);
+    oFReader0.onload = function (oFREvent) {
+        $("#photo-img0").attr('src', oFREvent.target.result);
+    };
+}
+
+function uploadBanner1() {
+    let avatar1 = $('#photo-input-img1').prop('files')[0];
+    let oFReader1 = new FileReader();
+    oFReader1.readAsDataURL(avatar1);
+    oFReader1.onload = function (oFREvent) {
+        $("#photo-img1").attr('src', oFREvent.target.result);
+    };
+}
+
+function uploadBanner2() {
+    let avatar2 = $('#photo-input-img2').prop('files')[0];
+    let oFReader2 = new FileReader();
+    oFReader2.readAsDataURL(avatar2);
+    oFReader2.onload = function (oFREvent) {
+        $("#photo-img2").attr('src', oFREvent.target.result);
+    };
+}
+
+function uploadBanner3() {
+    let avatar3 = $('#photo-input-img3').prop('files')[0];
+    let oFReader3 = new FileReader();
+    oFReader3.readAsDataURL(avatar3);
+    oFReader3.onload = function (oFREvent) {
+        $("#photo-img3").attr('src', oFREvent.target.result);
+    };
+}
+
+function uploadBanner4() {
+    let avatar4 = $('#photo-input-img4').prop('files')[0];
+    let oFReader4 = new FileReader();
+    oFReader4.readAsDataURL(avatar4);
+    oFReader4.onload = function (oFREvent) {
+        $("#photo-img4").attr('src', oFREvent.target.result);
+    };
+}
+
+function uploadBanner5() {
+    let avatar5 = $('#photo-input-img5').prop('files')[0];
+    let oFReader5 = new FileReader();
+    oFReader5.readAsDataURL(avatar5);
+    oFReader5.onload = function (oFREvent) {
+        $("#photo-img5").attr('src', oFREvent.target.result);
+    };
+}
+
+
 

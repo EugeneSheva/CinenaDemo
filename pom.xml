@@ -10,13 +10,19 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>CinenaDemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>avadaserver3</version>
     <name>CinenaDemo</name>
     <description>CinenaDemo</description>
+    <packaging>war</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -51,12 +57,84 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <!--                        <plugin>-->
+            <!--                            <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                            <artifactId>maven-war-plugin</artifactId>-->
+            <!--                            <version>3.3.2</version>-->
+            <!--                            <configuration>-->
+            <!--                                <warSourceDirectory>src</warSourceDirectory>-->
+            <!--                                <failOnMissingWebXml>false</failOnMissingWebXml>-->
+            <!--                                                    <webResources>-->
+            <!--                                                        <resource>-->
+            <!--                                                            <filtering>true</filtering>-->
+            <!--                                                            <directory>/src/</directory>-->
+            <!--                                                        </resource>-->
+            <!--                                                    </webResources>-->
+            <!--                            </configuration>-->
+            <!--                        </plugin>-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://kino.avada-media-dev1.od.ua/manager/html</url>
+                    <server>TomcatServer</server>
+                    <path>/cinema</path>
+                    <warDirectory>/src</warDirectory>
+                    <username>tomcat</username>
+                    <password>OUlIg40qOZ</password>
+                    <!--                    <update>true</update>-->
+                    <!--                    <ignorePackaging>true</ignorePackaging>-->
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8181/manager/text</url>
+                    <server>TomcatServer</server>
+                    <path>/cinema</path>
+                    <warDirectory>/src</warDirectory>
+                    <username>user</username>
+                    <password>user</password>
+                    <update>true</update>
+                    <!--                    <ignorePackaging>true</ignorePackaging>-->
+                </configuration>
+
+            </plugin>
+
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

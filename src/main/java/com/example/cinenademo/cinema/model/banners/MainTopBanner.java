@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class MainTopBanner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String imagePath;
     private String url;
     private String text;

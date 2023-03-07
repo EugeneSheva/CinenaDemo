@@ -157,7 +157,7 @@
                     <div class="form-group">
                         <br>
                         <label for="description">SEO текст</label>
-                        <textarea class="form-control" th:field="*{description}" id="description" placeholder="введите текст" rows="5"></textarea ><br>
+                        <textarea class="form-control" th:field="*{seotext}" id="description" placeholder="введите текст" rows="5"></textarea ><br>
                     </div>
                     <h6>SEO блок</h6>
                     <br>
@@ -177,19 +177,11 @@
                             <label for="seodescription">Description</label>
                             <textarea class="form-control" th:field="*{descript}" id="seodescription" placeholder="Description" rows="5"></textarea >
                         </div>
-
                     <br>
-
                     <label for="date"></label>
                     <input  type="hidden" id="date" class="form-control" th:field="*{date}" placeholder="Дата публикации">
-
-                    <div class="form-check form-switch" hidden="">
-                    <input class="form-check-input   "th:field="*{notremovable}" role="switch" type="checkbox" id="notremovable" >
-                    <label class="form-check-label" for="notremovable">Выключение/Включение отображения страницы</label>
-                    </div>
                     <label for="idpage"></label>
                     <input type="hidden" class="form-control" th:field="*{idpage}" id="idpage" placeholder="введется автоматически">
-
                     <label for="name"></label>
                     <input type="hidden" id="name" th:field="*{name}" class="form-control" placeholder="Название страницы">
 

@@ -8,6 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface MainTopBannerRepository extends JpaRepository<MainTopBanner, Integer> {
-    List<MainTopBanner> findAllByIdNotIn(Collection<Integer> id);
+public interface MainTopBannerRepository extends JpaRepository<MainTopBanner, Long> {
+    List<MainTopBanner> findAllByIdNotIn(Collection<Long> id);
 }

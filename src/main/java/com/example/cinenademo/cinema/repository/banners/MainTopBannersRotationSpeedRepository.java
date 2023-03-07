@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MainTopBannersRotationSpeedRepository extends JpaRepository<MainTopBannerRotationSpeed, Integer> {
-    Optional<MainTopBannerRotationSpeed> findFirstById(int id);
+public interface MainTopBannersRotationSpeedRepository extends JpaRepository<MainTopBannerRotationSpeed, Long> {
+    Optional<MainTopBannerRotationSpeed> findFirstById(Long id);
 }

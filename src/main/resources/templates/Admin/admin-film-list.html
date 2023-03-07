@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Фильмы</title>
@@ -46,7 +46,7 @@
                     <h2 th:case="null">Добавьте фильм</h2>
                     <div th:case="*">
                         <h2>Фильмы</h2>
-                            <div class="row row-cols-1 row-cols-sm-5 g-3" >
+                            <div class="row row-cols-1 row-cols-sm-5  g-3" >
                                 <div class="col" th:each="film : ${films}">
                                     <div class="card" >
                                         <img th:src="${film.mainpicture}" class="card-img-top" alt="card-grid-image" >

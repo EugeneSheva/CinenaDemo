@@ -1,10 +1,14 @@
 package com.example.cinenademo.cinema.controller;
 
-import com.example.cinenademo.cinema.model.*;
-
-import com.example.cinenademo.cinema.service.BanneractionService;
-import com.example.cinenademo.cinema.service.BannermainService;
-import com.example.cinenademo.cinema.service.BannermiddleService;
+import com.example.cinenademo.cinema.model.banners.ActionNewsBanner;
+import com.example.cinenademo.cinema.model.banners.BackgroundBanner;
+import com.example.cinenademo.cinema.model.banners.MainTopBanner;
+import com.example.cinenademo.cinema.model.banners.MainTopBannerRotationSpeed;
+import com.example.cinenademo.cinema.repository.banners.ActionNewsBannerRepository;
+import com.example.cinenademo.cinema.repository.banners.BackgroundBannerRepository;
+import com.example.cinenademo.cinema.repository.banners.MainTopBannerRepository;
+import com.example.cinenademo.cinema.service.banners.ActionNewsBannerService;
+import com.example.cinenademo.cinema.service.banners.ActionNewsBannersDto;
 import com.example.cinenademo.cinema.service.banners.MainTopBannerService;
 import com.example.cinenademo.cinema.service.banners.MainTopBannersDto;
 
@@ -16,15 +20,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 public class BannerController {
-
-    private final BannermainService bannermainService;
     private final MainTopBannerService mainTopBannerService;
-
+    private final ActionNewsBannerService actionNewsBannerService;
+    private final MainTopBannerRepository mainTopBannerRepository;
+    private final ActionNewsBannerRepository actionNewsBannerRepository;
+    private final BackgroundBannerRepository backgroundBannerRepository;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -32,8 +40,14 @@ public class BannerController {
 
     @GetMapping("/admin-banners")
     public String findAll(Model model) {
-        model.addAttribute("banners", mainTopBannerService.findAll());
-        model.addAttribute("rotationSpeed", mainTopBannerService.findRotationSpeed());
+        if (mainTopBannerRepository.findAll() == null) mainTopBannerRepository.save(new MainTopBanner());
+        if (actionNewsBannerRepository.findAll() == null) actionNewsBannerRepository.save(new ActionNewsBanner());
+        BackgroundBanner banner = backgroundBannerRepository.findById(1L).orElse(new BackgroundBanner());
+        model.addAttribute("banner", banner);
+        model.addAttribute("mbanners", mainTopBannerService.findAll());
+        model.addAttribute("mrotationSpeed", mainTopBannerService.findRotationSpeed());
+        model.addAttribute("abanners", actionNewsBannerService.findAll());
+        model.addAttribute("arotationSpeed", actionNewsBannerService.findRotationSpeed());
         return "Admin/admin-bannermain-list";
     }
 
@@ -43,39 +57,72 @@ public class BannerController {
         return "redirect:/admin-banners";
     }
 
-    @PostMapping("/admin-bannermain-card")
-    public String createBannermain(@ModelAttribute BannermainList bannmainlist, Model model, @RequestParam("filetmp") MultipartFile[] files) {
-        System.out.println(files);
-        List<Bannermain> bml = bannmainlist.getBannermainlist();
-        Long id = 1L;
-        for (Bannermain bannermain : bml) {
-            bannermain.setIdbannermain(id++);
-            bannermainService.save(bannermain);
+    @PostMapping("/save-banners1")
+    public String saveBanner1(@RequestParam("backbanner") MultipartFile file) {
+        try {
+            if (!(Files.exists(Path.of(uploadPath + "img/background_banner/"))))
+                Files.createDirectories(Path.of(uploadPath + "img/background_banner/"));
+            BackgroundBanner banner = backgroundBannerRepository.findById(1L).orElse(new BackgroundBanner());
+            if ((file.getSize() > 0) && (banner.getImagePath() != null))
+                Files.delete(Path.of(uploadPath + banner.getImagePath()));
+            UUID uuid = UUID.randomUUID();
+            Files.copy(file.getInputStream(),
+                    Path.of(uploadPath + "img/background_banner/" + uuid + file.getOriginalFilename()));
+            banner.setImagePath("/img/background_banner/" + uuid + file.getOriginalFilename());
+            banner.setId(1L);
+            backgroundBannerRepository.save(banner);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
-
         return "redirect:/admin-banners";
     }
 
-    @PostMapping("/admin-bannermain-card-add")
-    public String BannermainAddPict(@ModelAttribute BannermainList bannmainlist, Model model) {
-
-        List<Bannermain> bml = bannmainlist.getBannermainlist();
-        bml.add(new Bannermain());
-        Long id = 1L;
-        for (Bannermain bannermain : bml) {
-            bannermain.setIdbannermain(id++);
-
-            bannermainService.save(bannermain);
-        }
-
+    @PostMapping("/save-banners2")
+    public String saveBanners2(ActionNewsBannersDto bannersDto) {
+        System.out.println("--- controllerDTO" + bannersDto);
+        actionNewsBannerService.saveAllAndRotationSpeed(bannersDto);
         return "redirect:/admin-banners";
     }
 
-    @GetMapping("banmain-delete/{id}")
-    public String deleteBanMain(@PathVariable("id") Long id) {
-        bannermainService.deleteById(id);
+    @GetMapping("del-back-banner")
+    public String deleteBackBann() {
+        backgroundBannerRepository.deleteById(1L);
         return "redirect:/admin-banners";
     }
+
+//    @PostMapping("/admin-bannermain-card")
+//    public String createBannermain(@ModelAttribute BannermainList bannmainlist, Model model, @RequestParam("filetmp") MultipartFile[] files) {
+//        System.out.println(files);
+//        List<Bannermain> bml = bannmainlist.getBannermainlist();
+//        Long id = 1L;
+//        for (Bannermain bannermain : bml) {
+//            bannermain.setIdbannermain(id++);
+//            bannermainService.save(bannermain);
+//        }
+//
+//        return "redirect:/admin-banners";
+//    }
+//
+//    @PostMapping("/admin-bannermain-card-add")
+//    public String BannermainAddPict(@ModelAttribute BannermainList bannmainlist, Model model) {
+//
+//        List<Bannermain> bml = bannmainlist.getBannermainlist();
+//        bml.add(new Bannermain());
+//        Long id = 1L;
+//        for (Bannermain bannermain : bml) {
+//            bannermain.setIdbannermain(id++);
+//
+//            bannermainService.save(bannermain);
+//        }
+//
+//        return "redirect:/admin-banners";
+//    }
+
+//    @GetMapping("banmain-delete/{id}")
+//    public String deleteBanMain(@PathVariable("id") Long id) {
+//        bannermainService.deleteById(id);
+//        return "redirect:/admin-banners";
+//    }
 //    @PostMapping("/admin-banner-card-add2")
 //    public String createBanner2(@RequestParam ("idbanner") Long idbanner, @RequestParam("picture1") MultipartFile file) {
 //        Bannermain bannermain2 = new Bannermain();

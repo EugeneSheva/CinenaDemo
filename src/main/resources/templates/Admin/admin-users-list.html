@@ -60,7 +60,6 @@
                     <h2 th:case="null">Добавьте пользователя</h2>
                     <div th:case="*">
                         <h2>Пользователи</h2>
-
                         <table>
                             <thead>
                             <tr>
@@ -90,18 +89,62 @@
                                     <a th:href="@{users-delete/{id}(id=${user.idusers})}" class="btn btn-danger ">Удалить</a>
                                 </div></td>
                             </tr>
-
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
+                <nav aria-label="Page navigation " th:if="${user.totalPages gt 0}">
+                    <ul class="pagination justify-content-center font-weight-medium">
+                        <li class="page-item" th:classappend="${user.number eq 0} ? 'disabled'" >
+                            <a class="page-link" th:href="@{admin-users?page={id}&size={sz} (id=${user.number eq 0 ? user.number : 0},sz=${user.getSize})}" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${user.number le 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{admin-users?page={id}&size={sz} (id=${user.number - 2},sz=${user.getSize})}" aria-label="Next">
+                                <span aria-hidden="true">‹</span>
+                            </a>
+                        </li>
+                        <li class="page-item disabled" th:if="${user.number > 3 }">
+                            <a class="page-link" href="#">...
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq user.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence(( user.number > 2 ? user.number - 2: user.number - (user.number - 1) ), (user.number + 4 < user.totalPages   ? user.number + 4 : user.totalPages), 1)}">
+                            <a class="page-link" th:href="@{/admin-users?page={id}&size={sz} (id=${i-1},sz=${user.getSize})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"></a></li>
+                        <li class="page-item disabled" th:if="${user.number + 4 < user.totalPages}">
+                            <a class="page-link" href="#">...
+                            </a>
+                        </li>
+                        <!--                                <li class="page-item" th:classappend="${user.number + 1 eq user.totalPages} ? 'disabled'"><a class="page-link" href="#">...</a></li>-->
+                        <li class="page-item" th:classappend="${user.number ge user.totalPages - 2} ? 'disabled'">
+                            <a class="page-link" th:href="@{admin-users?page={id}&size={sz}(id=${user.number + 2},sz=${user.getSize})}" aria-label="Next">
+                                <span aria-hidden="true">›</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${user.number eq user.totalPages - 1} ? 'disabled'">
+                            <a class="page-link" th:href="@{admin-users?page={id}&size={sz}(id=${user.totalPages - 1},sz=${user.getSize})}" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                        <div class="btn-group">
+                            <button type="button" th:text="${user.getSize}" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" th:href="@{admin-users?page={id}&size={sz}(id=${user.getNumber},sz=5)}">5</a></li>
+                                <li><a class="dropdown-item" th:href="@{admin-users?page={id}&size=10(id=${user.getNumber})}">10</a></li>
+                                <li><a class="dropdown-item" th:href="@{admin-users?page={id}&size=25(id=${user.getNumber})}">25</a></li>
+                                <li><a class="dropdown-item" th:href="@{admin-users?page={id}&size=50(id=${user.getNumber})}">50</a></li>
+                                <li><a class="dropdown-item" th:href="@{admin-users?page={id}&size=100(id=${user.getNumber})}">100</a></li>
+                            </ul>
+                        </div>
+                    </ul>
+                </nav>
                 <br>
                 <a href="admin-users-card-form" class="btn btn-secondary">Создать</a>
-
-
-
             </form>
         </div>
     </div>

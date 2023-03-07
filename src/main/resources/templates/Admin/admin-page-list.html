@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <title>Страницы</title>
@@ -73,36 +73,34 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr>
+                            <td th:text="${pagemain.getName()}" width="350"></td>
+                            <td th:text="${pagemain.date}"width="350"></td>
+                            <td th:text="${pagemain.status}"width="350"></td>
+                            <td><a th:href="@{admin-page-card-update-main}" class="btn btn-secondary ">Редактировать</a></td>
+                        </tr>
                         <tr th:each="page : ${page}">
                             <td th:text="${page.name}" width="350"></td>
                             <td th:text="${page.date}"width="350"></td>
                             <td th:text="${page.status}"width="350"></td>
+                            <td><a th:href="@{admin-page-card-update/{id}(id=${page.idpage})}"class="btn btn-secondary ">Редактировать</a></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${pagecont.getName()}" width="350"></td>
+                            <td th:text="${pagecont.date}"width="350"></td>
+                            <td th:text="${pagecont.status}"width="350"></td>
+                            <td><a th:href="@{admin-page-update-contact}" class="btn btn-secondary ">Редактировать</a></td>
+                        </tr>
+                        <tr th:each="page : ${pageuser}">
+                            <td th:text="${page.name}" width="350"></td>
+                            <td th:text="${page.date}"width="350"></td>
+                            <td th:text="${page.status}"width="350"></td>
                             <td>
-                                <div th:switch="${page.notremovable}">
-                                    <div th:case="true">
-                                        <div th:switch="${page.ismain}">
-                                            <div th:case="true">
-                                                <a th:href="@{admin-page-card-update-main/{id}(id=${page.idpage})}" class="btn btn-secondary ">Редактировать</a>
-                                            </div>
-                                            <div th:case="*">
-                                                <div th:switch="${page.iscontact}">
-                                                    <div th:case="true">
-                                                        <a th:href="@{admin-page-card-update-contact/{id}(id=${page.idpage})}" class="btn btn-secondary ">Редактировать</a>
-                                                    </div>
-                                                    <div th:case="*">
-                                                        <a th:href="@{admin-page-card-update/{id}(id=${page.idpage})}" class="btn btn-secondary ">Редактировать</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div th:case="*">
-                                        <div class="btn-group" role="group" aria-label="Basic outlined button group">
-                                            <a th:href="@{admin-page-card-update/{id}(id=${page.idpage})}" class="btn btn-secondary ">Редактировать</a>
-                                            <a th:href="@{page-delete/{id}(id=${page.idpage})}" class="btn btn-danger ">Удалить</a>
-                                        </div>
-                                    </div>
+                                <div class="btn-group" role="group" aria-label="Basic outlined button group">
+                                    <a th:href="@{admin-page-card-update-user/{id}(id=${page.idpage})}" class="btn btn-secondary ">Редактировать</a>
+                                    <a th:href="@{page-delete/{id}(id=${page.idpage})}" class="btn btn-danger ">Удалить</a>
                                 </div>
+
                             </td>
                         </tr>
                         </tbody>
