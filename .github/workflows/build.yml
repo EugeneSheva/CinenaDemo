@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -16,15 +16,15 @@ jobs:
       - name: Build and without
         run: mvn -B clean package -DskipTests
 
-      - name: Deploy to Tomcat server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.TOMCAT_HOST }}
-          username: ${{ secrets.TOMCAT_USERNAME }}
-          password: ${{ secrets.TOMCAT_PASSWORD }}
-          port: 22
-          script: |
-            cd /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
-            rm -rf CinenaDemo-avadaserver3.war
-            cp C:/Users/1/IdeaProjects/CinenaDemo/target/CinenaDemo-avadaserver3.war .
-            sudo service tomcat restart
+#      - name: Deploy to Tomcat server
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.TOMCAT_HOST }}
+#          username: ${{ secrets.TOMCAT_USERNAME }}
+#          password: ${{ secrets.TOMCAT_PASSWORD }}
+#          port: 22
+#          script: |
+#            cd /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
+#            rm -rf CinenaDemo-avadaserver3.war
+#            cp C:/Users/1/IdeaProjects/CinenaDemo/target/CinenaDemo-avadaserver3.war .
+#            sudo service tomcat restart
