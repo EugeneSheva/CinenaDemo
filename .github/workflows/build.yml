@@ -25,6 +25,6 @@ jobs:
           port: 22
           script: |
             cd /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
-            rm -rf *
-            cp C:\Users\1\IdeaProjects\CinenaDemo\target\CinenaDemo-avadaserver3.war
+            rm -rf CinenaDemo-avadaserver3.war
+            cp C:/Users/1/IdeaProjects/CinenaDemo/target/CinenaDemo-avadaserver3.war .
             sudo service tomcat restart
