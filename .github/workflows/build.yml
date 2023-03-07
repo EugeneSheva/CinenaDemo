@@ -20,7 +20,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: kino.avada-media-dev1.od.ua
-            username: avada_kino@
+            username: 'avada_kino'
             password: #Es84!4lZ0P7
 
           #          host: ${{ secrets.TOMCAT_HOST }}
