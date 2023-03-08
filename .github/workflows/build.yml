@@ -27,4 +27,5 @@ jobs:
             cd /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
             rm -rf CinemaDemo.war
             rm -rf CinemaDemo
+            mkdir testcreating
 #            cp ~/github/workspace/target/*.war CinemaDemo.war
