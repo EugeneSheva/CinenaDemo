@@ -28,7 +28,7 @@ jobs:
               rm -rf CinemaDemo.war
               rm -rf CinemaDemo
               mkdir testcreating
-              cp ~/github/workspace/target/*.war CinemaDemo.war
+#              cp ~/github/workspace/target/*.war CinemaDemo.war
 #     проблема в этой строке
 
 
