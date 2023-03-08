@@ -22,8 +22,8 @@ jobs:
           host: kino.avada-media-dev1.od.ua
           username: avada_kino
           password: ${{ secrets.TOMCAT_PASSWORD }}
-          source: target/*.war
-          target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/*.war
+          source: /*.war
+          target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/CinemaDemo.war
 
 
 
