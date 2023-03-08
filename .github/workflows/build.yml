@@ -17,14 +17,19 @@ jobs:
         run: mvn -B clean package -DskipTests
 
       - name: Deploy to Tomcat server
-        uses: appleboy/scp-action@master
+        uses: appleboy/ssh-action@master
           with:
             host: kino.avada-media-dev1.od.ua
             username: ${{ secrets.TOMCAT_USERNAME }}
             password: ${{ secrets.TOMCAT_PASSWORD }}
             port: 22
-            source: ~/github/workspace/target/*.war
-            target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
+            script: |
+              cd /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
+              rm -rf CinemaDemo.war
+              rm -rf CinemaDemo
+              mkdir testcreating
+              cp ~/github/workspace/target/*.war CinemaDemo.war
+#     проблема в этой строке
 
 
 #        uses: appleboy/scp-action@master
