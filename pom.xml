@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>CinenaDemo</artifactId>
-    <version>avadaserver3</version>
+    <version>1</version>
     <name>CinenaDemo</name>
     <description>CinenaDemo</description>
     <packaging>war</packaging>
