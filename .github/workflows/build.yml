@@ -23,7 +23,7 @@ jobs:
           username: avada_kino
           password: ${{ secrets.TOMCAT_PASSWORD }}
           source: target/CinenaDemo-1.war
-          target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/CinenaDemo-1.war
+          target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/
 
 
 
