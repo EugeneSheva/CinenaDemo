@@ -32,8 +32,6 @@ jobs:
 
 
 #      - name: Deploy to Tomcat server
-
-
 #        uses: appleboy/ssh-action@master
 #        with:
 #          host: kino.avada-media-dev1.od.ua
