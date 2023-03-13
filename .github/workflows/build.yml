@@ -24,6 +24,7 @@ jobs:
           password: ${{ secrets.TOMCAT_PASSWORD }}
           source: target/CinenaDemo-1.war
           target: /home/avada/web/kino.avada-media-dev1.od.ua/tomcat/webapps/CinemaDemo.war
+          strip_components: 1
 
 
 #      - name: Deploy to Tomcat server
